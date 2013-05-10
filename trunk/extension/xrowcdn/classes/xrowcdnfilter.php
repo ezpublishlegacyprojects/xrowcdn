@@ -24,6 +24,8 @@ class xrowCDNFilter {
 		}
 	}
 	static function filter($output) {
+# speed up string matching by removing whitespace
+#	    $output = preg_replace('~>\s+<~', '><', $output);
 		if (eZSys::isSSLNow ()) {
 			return $output;
 		}
