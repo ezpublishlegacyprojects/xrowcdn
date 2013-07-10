@@ -24,6 +24,17 @@ class xrowCDNFilter {
 		}
 	}
 	static function filter($output) {
+$ini = eZINI::instance ( 'xrowcdn.ini' );
+if( $ini->hasVariable ( 'Settings', 'ExcludeHostList') ) 
+{
+foreach( eZINI::instance ( 'xrowcdn.ini' )->variable ( 'Settings', 'ExcludeHostList' ) as $host ) 
+{ 
+ if(strpos( $_SERVER['HTTP_HOST'], $host) !== false )  
+{ 
+return $output;
+}
+}
+}
 # speed up string matching by removing whitespace
 #	    $output = preg_replace('~>\s+<~', '><', $output);
 		if (eZSys::isSSLNow ()) {
